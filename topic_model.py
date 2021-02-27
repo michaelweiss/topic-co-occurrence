@@ -36,6 +36,9 @@ def show_topics(lda):
 	for topics in lda.show_topics():
 		print(topics)
 
+def ids_to_words(bow, dictionary):
+	return [(dictionary.id2token[w], f) for w, f in bow]
+
 #-----------Main----------------
 if __name__ == "__main__":
 	corpus = load_corpus("data/assertions.csv")
@@ -44,4 +47,11 @@ if __name__ == "__main__":
 	dictionary = Dictionary(tokens)
 	lda = fit_lda(tokens, 10, dictionary)
 	show_topics(lda)
+
+	for bow in tokens_to_bow(tokens, dictionary):
+		print(ids_to_words(bow, dictionary))
+		topics = lda.get_document_topics(bow)
+		print(topics)
+
+
 
