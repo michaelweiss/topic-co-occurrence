@@ -29,6 +29,7 @@ def corpus_to_tokens(corpus):
 #-----------Main----------------
 if __name__ == "__main__":
 	corpus = load_corpus("data/assertions.csv")
-	show_corpus(corpus)
+	# show_corpus(corpus)
 	tokens = corpus_to_tokens(corpus)
-	print(tokens)
+	
+	
