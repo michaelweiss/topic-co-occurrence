@@ -21,11 +21,14 @@ def read_stopwords(file):
 def tokenize(document):
 	return [w.lower() for w in document.split()]
 
-corpus = load_corpus("data/assertions.csv")
-show_corpus(corpus)
+def corpus_to_tokens(corpus):
+	stopwords = read_stopwords("stopwords-en.txt")
+	return [[w for w in tokenize(document) if w not in stopwords and w.isalnum()]
+		for document in corpus['content']]
 
-stopwords = read_stopwords("stopwords-en.txt")
-
-tokens = [[w for w in tokenize(document) if w not in stopwords and w.isalnum()]
-			for document in corpus['content']]
-print(tokens)
+#-----------Main----------------
+if __name__ == "__main__":
+	corpus = load_corpus("data/assertions.csv")
+	show_corpus(corpus)
+	tokens = corpus_to_tokens(corpus)
+	print(tokens)
