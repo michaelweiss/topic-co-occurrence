@@ -39,8 +39,8 @@ def show_topics(lda):
 def ids_to_words(bow, dictionary):
 	return [(dictionary.id2token[w], f) for w, f in bow]
 
-def document_topics_matrix(bow_list):
-	return [lda.get_document_topics(bow) for bow in bow_list]
+def document_topics_matrix(tokens, dictionary):
+	return [lda.get_document_topics(bow) for bow in tokens_to_bow(tokens, dictionary)]
 
 def show_document_topics_matrix(dtm):
 	for i, topics in enumerate(dtm):
@@ -63,7 +63,7 @@ if __name__ == "__main__":
 	dictionary = Dictionary(tokens)
 	lda = fit_lda(tokens, 10, dictionary)
 	# show_topics(lda)
-	dtm = document_topics_matrix(tokens_to_bow(tokens, dictionary))
+	dtm = document_topics_matrix(tokens, dictionary)
 	# show_document_topics_matrix(dtm)
 	tcom = topic_co_occurrence_matrix(dtm, 0.1)
 	# for i, tco in enumerate(tcom):
